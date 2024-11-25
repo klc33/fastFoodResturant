@@ -69,7 +69,16 @@ https://templatemo.com/tm-558-klassy-cafe
                             <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#about">About</a></li>
                             <li class="scroll-to-section"><a href="#menu">Menu</a></li>
-                            <li class="scroll-to-section"><a href="#reservation">Contact Us</a></li> 
+                            <li class="scroll-to-section"><a href="#reservation">Contact Us</a></li>
+                            <li class="scroll-to-section"><a href="#reservation">
+                                @auth
+                                Cart[{{$count}}]
+                                @endauth
+                                @guest
+                                 Cart[0]   
+                                @endguest
+                            
+                            </a></li> 
 
                             <li class="register1">
                             @if (Route::has('login'))
