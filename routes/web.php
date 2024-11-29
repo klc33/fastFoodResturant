@@ -20,6 +20,7 @@ Route::post('/update/{id}',[AdminController::class,"update"]);
 
 Route::get('/users',[AdminController::class,"user"]);
 Route::get('/deleteuser/{id}',[AdminController::class,"deleteuser"]);
+Route::get('/showcart/{id}',[HomeController::class,"showcart"]);
 
 Route::middleware([
     'auth:sanctum',
