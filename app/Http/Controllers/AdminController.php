@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Food;
+use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -64,5 +67,20 @@ class AdminController extends Controller
         $data->save();
 
         return redirect()->back();
+    }
+    public function getallorders(){
+        if(Auth::id()){
+            if(Auth::user()->usertype == "1"){
+                
+                $data = DB::table('orders')
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            ->join('carts','carts.user_id','=','users.id')
+            ->join('food','carts.food_id','=','food.id')
+            ->select('food.title', 'carts.quantity', 'food.price','orders.name','orders.address','orders.phone')->get();
+            
+                return view('admin.orders',compact('data'));
+            }
+        
+        }
     }
 }

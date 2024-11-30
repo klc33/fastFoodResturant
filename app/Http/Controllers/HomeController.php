@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Food;
 use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -76,5 +77,30 @@ class HomeController extends Controller
             
         return view("showcart",compact("count","data","data2","i"));
         }
+        return redirect()->back();
     } 
+    public function remove(Request $request,$id){
+        if(Auth::id()){
+        $data = Cart::find($id);
+        $data->delete();
+        return redirect()->back();
+        }
+        return redirect()->back();
+    }
+
+    public function orderconfirm(Request $request,$id){
+        if(Auth::id()){
+            $count = Cart::where("user_id",$id)->count();
+            for( $i = 0; $i < $count; $i++ ){
+                $data = new order;
+                $data->user_id = $id;
+                $data->name= $request->name;
+                $data->phone = $request->phone;
+                $data->address = $request->address;
+                $data->save();
+        }
+        return redirect()->back();
+    }
+    return redirect()->back();
+}
 }

@@ -36,8 +36,11 @@ https://templatemo.com/tm-558-klassy-cafe
             align-items: center;
 
         }
-        
+        .none{
+            display:none;
+        }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     </head>
     
     <body>
@@ -60,7 +63,7 @@ https://templatemo.com/tm-558-klassy-cafe
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a href="{{url('/')}}" class="logo">
                             <img src="assets/images/klassy-logo.png" align="klassy cafe html template">
                         </a>
                         <!-- ***** Logo End ***** -->
@@ -143,25 +146,64 @@ https://templatemo.com/tm-558-klassy-cafe
         @foreach ($data as $data)
         <tr>
             <td align="center">{{$data->title}}</td>
-            <td align="center">{{$data->price}}</td>
-            <td align="center">{{$data->quantity}}</td>
-        </tr>            
-        @endforeach
-        @foreach($data2 as $data)
-        <tr>
-         
-           
-            <td align="center"> <a class="btn btn-warning" href="{{url('/remove',$data2[$i]->id)}}">Remove</a></td>
-            {{$i+=1}}
-        </tr>
-       
-        @endforeach
-    </table>
+                <td align="center">{{$data->price}}</td>
+                    <td align="center">{{$data->quantity}}</td>
+                    </tr>            
+                    @endforeach
+                    @foreach($data2 as $data)
+                    <tr>
+                        <td align="center"> <a class="btn btn-warning" href="{{url('/remove',$data2[$i]->id)}}">Remove</a></td>
+                        <div class="none">{{$i+=1}}</div>
+                    </tr>
+                    
+                    @endforeach
+                </table>
+                
+                <div align="center" style="padding:10; ">
+                    <button id="order" type="button" class="btn btn-primary">Order Now</button>
+                </div>
+                
+            </div>
+            <form action="{{url('/orderconfirm',Auth::user()->id)}}" method="post">
+                @csrf
     
-</div>
-
-
-
+    <div id="appear" align="center" style="padding:10px; display:none;">
+        <div>
+            <label for="">Name</label>
+            <input type="text" name="name" placeholder="Enter Name">   
+        </div>
+        
+        <div>
+            <label for="">Phone</label>
+            <input type="number" name="phone" placeholder="Enter Phone Number">   
+        </div>
+        
+        <div>
+            <label for="">Address</label>
+            <input type="text" name="address" placeholder="Your Address">   
+        </div>
+        <div>
+            <input  value="Order Confirm" type="submit"  class="btn btn-success">
+            <input type="button" id="close" value="Close" name="close" class="btn btn-danger">  
+        </div>
+    </form>
+    </div>
+    
+    
+    
+    <script type="text/javascript">
+        $("#order").click(
+            function(){
+                $("#appear").show();
+            }
+        )
+        
+        $("#close").click(
+            function(){
+                $("#appear").hide();
+            }
+        )
+    </script>
      <!-- jQuery -->
      <script src="assets/js/jquery-2.1.0.min.js"></script>
 
